@@ -1,0 +1,11 @@
+.imageContainer{
+    /* border: 1px solid red; */
+    /* object-fit: cover; */
+}
+.imageContainer img{
+    height: 100%;
+}
+.imageContainer:hover{
+    opacity: 50%;
+    scale: 105%;
+}

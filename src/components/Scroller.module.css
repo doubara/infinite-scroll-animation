@@ -1,0 +1,11 @@
+.scroller{
+    /* border: 1px solid rgb(255, 255, 255); */
+    padding: 0;
+    margin-block: 50px;
+    /* height: 260px; */
+    /*layout styles*/
+    display: grid;
+    grid-template-columns: repeat(10, 200px);
+    /* animation styles */
+    /* transform: translateX(-200px); */
+}

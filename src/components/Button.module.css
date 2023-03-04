@@ -1,0 +1,9 @@
+.mainButton{
+    border: none;
+    padding: 1rem;
+    background-color: rgb(46, 14, 46);
+    color: rgb(255, 236, 255);
+    display: inline-block;
+    margin: .5rem;
+    border-radius: 10px;
+}
