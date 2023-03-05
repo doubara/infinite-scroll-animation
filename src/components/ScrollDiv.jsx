@@ -10,34 +10,46 @@ const ScrollDiv = (props) =>{
     const [imageWidth, setImageWidth] = useState(0)
     //this is a reference to the scrollDiv component
     const scrollRef = useRef();
-    
-    let start, animation
+    const progress = useRef(null)
+
+    let start, animation, current
 
     useEffect(()=>{
         const totalWidth = scrollRef.current.getBoundingClientRect().width
-
         function scrollAnimation(time){
             if (!start) start = time
-            let progress = Math.round((time - start) / props.fps)
-            
-            scrollRef.current.style.transform = `translate(-${progress}px)`;
-    
-            if (progress < totalWidth){
+            progress.current = Math.round((time - start) / props.fps)
+
+
+            scrollRef.current.style.transform = `translate(-${progress.current}px)`;
+            if (progress.current < totalWidth){
                 animation = requestAnimationFrame(scrollAnimation);
             }
-            else if (progress >= totalWidth){
+            else if (progress.current >= totalWidth){
                 props.sendScrollingData({animationEnd: 1});
                 
+                
             }
+            
         }
-        
-        
-        animation = requestAnimationFrame(scrollAnimation)
+        console.log(progress.current)
         if (props.paws === true){
             cancelAnimationFrame(animation);
-            console.log('Animation paused');
+            
+            // props.updateAnimationProgress(progress.current);
+            
+            // start = props.currentTime
+
+            
         }
-    }, [imageWidth, props.paws]);
+        else animation = requestAnimationFrame(scrollAnimation)
+        
+        return ()=>{
+            cancelAnimationFrame(animation)
+        }
+        
+        
+    }, [imageWidth, props]);
     function gotImageRefWidth(width){
         setImageWidth(width);
     }
@@ -45,7 +57,8 @@ const ScrollDiv = (props) =>{
     return (
         <div ref={scrollRef} className={style.scrollDiv}>
             {props.images.map(cats=>{
-                return <ScrollImage onGetImageRefWidth={gotImageRefWidth} key={cats+'key'} image={cats} />
+                return <ScrollImage onGetImageRefWidth={gotImageRefWidth} key={cats+'key'} image={cats} 
+                />
             })}
         </div>
     )

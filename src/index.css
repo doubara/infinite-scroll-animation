@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 img{
     max-width: 100%;

@@ -6,6 +6,5 @@
     height: 100%;
 }
 .imageContainer:hover{
-    opacity: 50%;
-    scale: 105%;
+    scale: 110%;
 }

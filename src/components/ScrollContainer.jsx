@@ -26,15 +26,22 @@ const ScrollContainer = (props)=>{
                 return [secondList, firstList]
                 
             })
-            console.log('reload');
         }
+    }
+    function updateAnimationProgress(progress){
+        props.updateAnimationProgress(progress);
+        
     }
 
     return (
         <div className={style.scrollContainer}>
             {
                 imagesArray.map((value, index)=>{
-                    return <ScrollDiv paws={props.pawsAnimation} fps={props.fps} iterationNumber = {index+1} key={Math.random()*23474} sendScrollingData={onFinishedScrolling} images={value}></ScrollDiv>
+                    return <ScrollDiv paws={props.pawsAnimation} fps={props.fps} iterationNumber = {index+1} 
+                    key={Math.random()*23474} sendScrollingData={onFinishedScrolling} 
+                    images={value}
+                    updateAnimationProgress={updateAnimationProgress}
+                    currentTime={props.currentTime}></ScrollDiv>
                 })
             }
         </div>
