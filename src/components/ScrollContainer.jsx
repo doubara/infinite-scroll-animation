@@ -41,7 +41,7 @@ const ScrollContainer = (props)=>{
                     key={Math.random()*23474} sendScrollingData={onFinishedScrolling} 
                     images={value}
                     updateAnimationProgress={updateAnimationProgress}
-                    currentTime={props.currentTime}></ScrollDiv>
+                    startTime={props.currentTime}></ScrollDiv>
                 })
             }
         </div>

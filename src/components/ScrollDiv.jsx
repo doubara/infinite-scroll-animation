@@ -1,29 +1,36 @@
 import style from './ScrollDiv.module.css';
 import ScrollImage from './ScrollImage'
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import useScroll from './useScroll';
+import UpdateProgressContext from './UpdateProgressContext';
 
 
 const ScrollDiv = (props) =>{
+    const {progress:animationProgress, setProgress} = useContext(UpdateProgressContext);
     //this state holds the value of the individual image width, whiich is used to compute the total width of the image containers andd the end point of the animation
     const [imageWidth, setImageWidth] = useState(0)
     //this is a reference to the scrollDiv component
     const scrollRef = useRef();
     const progress = useRef(null)
 
-    let start, animation, current
+    let start
+    const animation = useRef(null);
 
     useEffect(()=>{
         const totalWidth = scrollRef.current.getBoundingClientRect().width
+
         function scrollAnimation(time){
             if (!start) start = time
             progress.current = Math.round((time - start) / props.fps)
 
 
             scrollRef.current.style.transform = `translate(-${progress.current}px)`;
+
+            props.updateAnimationProgress(progress.current);
+
             if (progress.current < totalWidth){
-                animation = requestAnimationFrame(scrollAnimation);
+                animation.current = requestAnimationFrame(scrollAnimation);
             }
             else if (progress.current >= totalWidth){
                 props.sendScrollingData({animationEnd: 1});
@@ -32,24 +39,28 @@ const ScrollDiv = (props) =>{
             }
             
         }
-        console.log(progress.current)
+        console.log(props.paws);
         if (props.paws === true){
-            cancelAnimationFrame(animation);
+            // console.log(animation.current);
+            scrollRef.current.style.transform = `translate(-${props.startTime}px)`;
+
+            cancelAnimationFrame(animation.currrent);
+
             
-            // props.updateAnimationProgress(progress.current);
+            // scrollAnimation(props.startTime)
             
             // start = props.currentTime
 
             
         }
-        else animation = requestAnimationFrame(scrollAnimation)
+        else animation.current = requestAnimationFrame(scrollAnimation)
         
         return ()=>{
             cancelAnimationFrame(animation)
         }
         
         
-    }, [imageWidth, props]);
+    }, [props.paws]);
     function gotImageRefWidth(width){
         setImageWidth(width);
     }
