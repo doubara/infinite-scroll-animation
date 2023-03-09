@@ -5,7 +5,7 @@ import ScrollContainer from './components/ScrollContainer';
 import PawsButton from './components/PawsButton';
 import PlayButton from './components/PlayButton';
 import style from './components/Button.module.css';
-// import image from './assets/IMG-1.jpg'
+
 import ViewImageContext from './components/ViewImageContext';
 import UpdateProgressContext from './components/UpdateProgressContext';
 
@@ -25,28 +25,12 @@ function App() {
 
   const startProgress = useRef(null);
 
-  // function changePaws(val) {
-  //   setPaws(previousVal=> !previousVal);
-  // }
-  // useEffect(()=>{
-  //   // console.log(progress);
-  //   function updateAnimationProgress(progress){
-  //     startProgress.current = progress;
-  //   }
-  // })
-  // console.log(startProgress.current);
+  
   return (
     <UpdateProgressContext.Provider value={progressValue}>
 
       <ViewImageContext.Provider value={urlValue}>
         <div className="App">
-        {/* <div>
-          <button onClick={setPaws(true)} className={style.mainButton} type='button'>paws</button>
-
-          <button onClick={setPaws(false)} className={style.mainButton} type='button'>play</button>
-        </div> */}
-        
-        
         <div>
           <PawsButton scrollPawsed={()=> setPaws(previousVal=> !previousVal)}>{!paws ? 'Paws' : 'play'}</PawsButton>
         </div>
